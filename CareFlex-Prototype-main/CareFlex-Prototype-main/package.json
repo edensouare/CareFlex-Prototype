@@ -1,0 +1,9 @@
+{
+  "name": "careflex-prototype",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --dir \"CareFlex Prototype\" run dev",
+    "build": "pnpm --dir \"CareFlex Prototype\" run build",
+    "preview": "pnpm --dir \"CareFlex Prototype\" run preview"
+  }
+}
