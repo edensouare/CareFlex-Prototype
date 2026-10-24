@@ -99,6 +99,6 @@ Everything in the interface is simulated to demonstrate the UX and interaction f
 
 ## Deployment
 
-The app is configured for static deployment and can be published to GitHub Pages. The project includes the necessary Vite base-path configuration for a GitHub Pages deployment.
+The app is configured for static deployment with the Vite base path required by this repository. In the repository’s **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. Do not select branch-based deployment: it runs a separate Jekyll deployment from the repository root, which does not contain the built app and can replace the app deployment with a 404.
 
-To publish, use the repository’s GitHub Pages settings and deploy from GitHub Actions, or trigger the deployment workflow manually in the repository Actions tab.
+After setting the source, push to `main` or run **Deploy to GitHub Pages** from the repository’s Actions tab. The app is published at `https://edensouare.github.io/CareFlex-Prototype/`. The account root URL, `https://edensouare.github.io/`, belongs to a separate Pages site and does not point to this project.
