@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { supabase } from "./supabase";
 
 type IconName =
   | "home"
@@ -39,7 +40,7 @@ const iconPaths: Record<IconName, ReactNode> = {
   link: <><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.2 1.2" /><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.2-1.2" /></>,
 };
 
-function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
+export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       {iconPaths[name]}
@@ -277,7 +278,7 @@ export default function App() {
                   <button role="menuitem" disabled><Icon name="link" size={17} /><span>Connect another account</span></button>
                   <button role="menuitem" onClick={() => { setActiveNav("Profile & settings"); setProfileMenuOpen(false); }}><Icon name="shield" size={17} /><span>Settings</span></button>
                   <div className="dropdown-separator"></div>
-                  <button className="logout-item" role="menuitem" disabled><Icon name="arrow" size={17} /><span>Log out</span></button>
+                  <button className="logout-item" role="menuitem" onClick={() => supabase.auth.signOut()}><Icon name="arrow" size={17} /><span>Log out</span></button>
                 </div>
               )}
             </div>
