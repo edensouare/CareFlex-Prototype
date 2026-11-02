@@ -15,7 +15,7 @@ function Root() {
   }, [])
 
   if (session === undefined) return null
-  return session ? <App /> : <SignIn />
+  return session ? <App user={session.user} /> : <SignIn />
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
