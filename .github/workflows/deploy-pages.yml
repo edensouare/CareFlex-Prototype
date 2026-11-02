@@ -37,12 +37,11 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: CareFlex-Prototype-main/CareFlex-Prototype-main/CareFlex Prototype
       - name: Build prototype
-        env:
-          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }} 
         run: pnpm build
         working-directory: CareFlex-Prototype-main/CareFlex-Prototype-main/CareFlex Prototype
         env:
+          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }} 
           GITHUB_PAGES: 'true'
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
