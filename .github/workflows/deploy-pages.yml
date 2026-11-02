@@ -40,6 +40,8 @@ jobs:
         run: pnpm build
         working-directory: CareFlex-Prototype-main/CareFlex-Prototype-main/CareFlex Prototype
         env:
+          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }} 
           GITHUB_PAGES: 'true'
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -50,8 +52,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-      VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }} 
     runs-on: ubuntu-latest
     needs: build
     steps:
