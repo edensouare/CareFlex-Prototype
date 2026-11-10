@@ -73,19 +73,19 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
         <div className="privacy-note">
           <Icon name="shield" size={17} />
-          <span>Your health data is private and protected.</span>
+          <span>Explore CareFlex with fictional sample medical records.</span>
         </div>
       </aside>
 
       <main className="signin-main">
         <form className="signin-card" onSubmit={handleSubmit}>
-          <p className="eyebrow">PATIENT PORTAL</p>
+          <p className="eyebrow">CAREFLEX DEMO</p>
           <h2>{isSignUp ? "Create your account" : "Sign in to CareFlex"}</h2>
           <p className="flow-lead">
-          {isSignUp
-            ? "Create an account to get started with CareFlex."
-            : "Welcome back. Enter your details to continue."}
-        </p>
+            {isSignUp
+              ? "Create your account to explore CareFlex with preloaded sample medical information."
+              : "Welcome back! Sign in to continue your CareFlex demo experience."}
+          </p>
 
           {isSignUp && (
           <>
