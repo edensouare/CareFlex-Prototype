@@ -1,104 +1,141 @@
 # CareFlex Prototype
 
-CareFlex is a front-end prototype for a patient portal that helps people understand their care plan, track follow-up tasks, and review recent visit and lab updates in plain language.
+CareFlex is an interactive patient portal prototype designed to help patients better understand their healthcare information, stay informed about their care, and take appropriate next steps.
 
-## What the UI does
+The interface emphasizes plain-language communication, clear information hierarchy, and intuitive navigation to make healthcare information more accessible and actionable.
 
-The prototype simulates a healthcare dashboard for a patient named Sophia Miller.
+**Live prototype:** https://edensouare.github.io/CareFlex-Prototype/
 
-The interface includes:
+## Project Overview
 
-- Overview dashboard with a care summary, reminder for a medication follow-up, recent visit highlights, and active lab progress
-- Navigation between sections: Overview, Appointments, Lab results, Messages, and Health records
-- A medication follow-up flow that lets the user:
-  - review a reminder from Dr. Elena Chen
-  - send a message to the care team
-  - choose a date and time for a follow-up appointment
-  - confirm the appointment
-- Modal detail views for:
-  - a plain-language visit summary
-  - a lab test tracking panel with a sample journey timeline
-- A patient profile menu with profile/settings options (presented as demo controls, not connected to a real backend)
+CareFlex explores how patient portals can make healthcare information easier to understand and navigate.
 
-This is a static UX prototype, so the data shown is pre-filled demo content. There is no real patient record system, no live messaging backend, and no database.
+The prototype focuses on three areas of the patient experience:
 
-## Required setup
+- **Lab test tracking:** Helping patients understand the current status of a lab test and what happens next.
+- **Visit summaries:** Presenting important information from recent healthcare visits in clear, accessible language.
+- **Follow-up care:** Supporting patients as they review recommendations and schedule follow-up appointments.
 
-The prototype is designed to run without installing any additional software beyond the project’s dependencies.
+The interface is built around a fictional healthcare scenario with preloaded sample medical records.
 
-Minimum requirements:
+## Demo Experience
 
-- A modern browser: Chrome, Edge, Firefox, or Safari
-- Node.js 18 or later (20+ recommended)
-- pnpm package manager
+CareFlex is an interactive demonstration, not a live healthcare service.
 
-No login, API key, or external service is required to run the UI.
+Users create an account or sign in using their own credentials. After authentication, they enter **demo mode**, where they can explore a patient portal populated with sample medical information.
 
-## Running the prototype
+The demo includes fictional medical records, lab updates, visit summaries, provider messages, and appointment availability.
 
-From the repository root, use the following commands:
+### Demo Mode Welcome Screen
 
-```sh
-cd /workspaces/CareFlex-Prototype/CareFlex-Prototype-main/CareFlex-Prototype-main
-pnpm --dir "CareFlex Prototype" install
-pnpm --dir "CareFlex Prototype" dev --host 0.0.0.0
-```
+A welcome screen appears after a user successfully signs up or logs in.
 
-Then open the app in your browser:
+It explains that:
 
-- Local URL: http://localhost:8443
+- The user is exploring CareFlex in demo mode.
+- Sample medical records and care information are already available.
+- All medical information is fictional.
+- No real healthcare providers or patient record systems are connected.
+- Messaging and appointment booking are simulated.
 
-The app is configured to run on port 8443 by default.
+Users select **Explore CareFlex** to continue to the dashboard.
 
-## Demo login and test usage
+The welcome screen appears after each new login but does not reappear when navigating between pages or refreshing the application during the same login session.
 
-This prototype does not require a real username or password.
+A persistent demo-mode indicator helps users distinguish sample healthcare information from real medical records.
 
-Use the interface as a demo patient session:
+## Features
 
-- Patient name: Sophia Miller
-- User ID: not required
-- Password: not required
+### Account Registration and Authentication
 
-The app opens directly into the patient dashboard. Any login prompt is intentionally omitted because the project is a front-end mockup rather than a production authentication flow.
+CareFlex uses Supabase Authentication to support:
 
-## Browser and device notes
+- Email and password registration
+- Email and password login
+- User account information, including the registered name
+- Persistent authentication sessions
+- Account logout
 
-- Recommended display: desktop or tablet-sized browser window
-- The layout is optimized for standard desktop screens and may not be fully tuned for very small mobile screens
-- For the best experience, use a recent version of Chrome, Edge, or Firefox
-- If you are using a remote environment or a virtual machine, the app is configured for host access via `0.0.0.0` so it can be reached from the browser session
+Authentication is functional, while the healthcare information displayed after login is fictional.
 
-## Building for production
+### Patient Dashboard
 
-To verify the compiled app builds successfully:
+The overview dashboard provides a centralized view of sample healthcare information, including:
 
-```sh
-cd /workspaces/CareFlex-Prototype/CareFlex-Prototype-main/CareFlex-Prototype-main
-pnpm --dir "CareFlex Prototype" build
-```
+- Personalized greeting using the signed-in user's account name
+- Follow-up care reminders
+- Recent visit highlights
+- Active lab test progress
+- Appointment information
+- Health-related guidance
 
-A preview version can then be served locally with:
+The dashboard prioritizes information that may require the user's attention.
 
-```sh
-pnpm --dir "CareFlex Prototype" preview --host 0.0.0.0
-```
+### Lab Test Tracking
 
-## Limitations
+The lab results interface presents the progress of a sample laboratory test through stages such as:
 
-This prototype is intentionally limited to front-end behavior. It does not include:
+1. Sample collected
+2. Sample received by the laboratory
+3. Testing in progress
+4. Results available
 
-- real authentication or user accounts
-- a backend API or database
-- live appointment booking or messaging
-- actual lab result data or patient records
-- data persistence between browser refreshes
-- secure medical workflow handling
+A detailed timeline provides additional context about the testing process.
 
-Everything in the interface is simulated to demonstrate the UX and interaction flow only.
+Lab statuses and estimated completion times are fictional and do not represent real-time laboratory information.
 
-## Deployment
+### Visit Summaries
 
-The app is configured for static deployment with the Vite base path required by this repository. In the repository’s **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. Do not select branch-based deployment: it runs a separate Jekyll deployment from the repository root, which does not contain the built app and can replace the app deployment with a 404.
+CareFlex presents healthcare visit information in a patient-friendly format.
 
-After setting the source, push to `main` or run **Deploy to GitHub Pages** from the repository’s Actions tab. The app is published at `https://edensouare.github.io/CareFlex-Prototype/`. The account root URL, `https://edensouare.github.io/`, belongs to a separate Pages site and does not point to this project.
+The visit summary includes:
+
+- Key takeaways from the appointment
+- Relevant health findings
+- Medication information and changes
+- Recommended next steps
+- Access to the original sample clinical notes
+
+The interface is designed to help users quickly identify important information without having to interpret lengthy clinical documentation.
+
+### Follow-Up Appointment Scheduling
+
+The prototype includes an interactive appointment scheduling flow.
+
+Users can:
+
+- Review a follow-up recommendation
+- Explore sample appointment availability
+- Select a date and time
+- Review appointment details
+- Confirm a simulated appointment
+
+Appointment confirmations are part of the demo experience. No appointments are booked with real healthcare providers.
+
+### Provider Messaging
+
+CareFlex includes a simulated messaging interface that demonstrates how patients might communicate with their care team.
+
+Messages are not delivered to real healthcare professionals.
+
+### Additional Navigation
+
+The interface includes the following sections:
+
+- Overview
+- Appointments
+- Lab results
+- Messages
+- Health records
+- Profile and settings
+
+Some secondary controls are included for interface demonstration and may not have complete functionality.
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| React | User interface development |
+| TypeScript | Application logic and type safety |
+| Vite | Development server and build tooling |
+| CSS

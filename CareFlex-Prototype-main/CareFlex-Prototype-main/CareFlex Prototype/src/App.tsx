@@ -215,7 +215,15 @@ function PortalPage({
   );
 }
 
-export default function App({ user }: { user: User }) {
+export default function App({
+  user,
+  showWelcome,
+  onDismissWelcome,
+}: {
+  user: User;
+  showWelcome: boolean;
+  onDismissWelcome: () => void;
+}) {
   const savedName = user.user_metadata?.full_name;
 
 const fullName =
@@ -284,7 +292,7 @@ const initials = fullName
         <div className="sidebar-bottom">
           <button className={`nav-item ${activeNav === "Help & support" ? "active" : ""}`} onClick={() => setActiveNav("Help & support")}><Icon name="help" size={19} /><span>Help & support</span></button>
           <button className={`nav-item ${activeNav === "Profile & settings" ? "active" : ""}`} onClick={() => setActiveNav("Profile & settings")}><Icon name="user" size={19} /><span>Profile & settings</span></button>
-          <div className="privacy-note"><Icon name="shield" size={17} /><span>Your health data is private and protected.</span></div>
+          <div className="privacy-note"><Icon name="shield" size={17} /><span>Demo mode · Fictional medical information</span></div>
         </div>
       </aside>
 
@@ -292,8 +300,9 @@ const initials = fullName
         <header className="topbar">
           <div className="provider-status">
             <span className="status-dot"></span>
-            <span>Connected to <strong>Westside Medical Group</strong></span>
-            <button disabled>Manage</button>
+            <span>
+              <strong>Demo mode</strong> · Sample medical records
+            </span>
           </div>
           <div className="top-actions">
             <button className="icon-button" aria-label="Notifications" disabled>
@@ -428,6 +437,63 @@ const initials = fullName
           )}
         </div>
       </main>
+
+      {showWelcome && (
+        <div className="modal-backdrop">
+          <section
+            className="flow-modal demo-welcome-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="demo-welcome-title"
+            aria-describedby="demo-welcome-description"
+          >
+            <div className="flow-content demo-welcome-content">
+              <div className="demo-welcome-icon">
+                <Icon name="shield" size={28} />
+              </div>
+
+              <span className="demo-welcome-label">
+                DEMO EXPERIENCE
+              </span>
+
+              <h2 id="demo-welcome-title">
+                Welcome to CareFlex, {firstName}!
+              </h2>
+
+              <p
+                id="demo-welcome-description"
+                className="demo-welcome-description"
+              >
+                You're exploring CareFlex in demo mode.
+                We've preloaded sample medical records,
+                visit summaries, lab updates, and care
+                information so you can experience how
+                CareFlex works.
+              </p>
+
+              <div className="demo-welcome-notice">
+                <Icon name="shield" size={19} />
+                <p>
+                  All medical information is fictional.
+                  No real healthcare providers are connected,
+                  and actions such as messaging and appointment
+                  booking are simulated.
+                </p>
+              </div>
+
+              <button
+                className="primary-button full"
+                type="button"
+                onClick={onDismissWelcome}
+              >
+                Explore CareFlex
+                <Icon name="arrow" size={17} />
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
+
 
       {flowStep > 0 && (
         <div className="modal-backdrop" role="presentation">
