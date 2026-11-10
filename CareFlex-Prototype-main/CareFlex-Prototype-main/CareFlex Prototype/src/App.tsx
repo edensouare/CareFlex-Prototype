@@ -292,7 +292,7 @@ const initials = fullName
         <div className="sidebar-bottom">
           <button className={`nav-item ${activeNav === "Help & support" ? "active" : ""}`} onClick={() => setActiveNav("Help & support")}><Icon name="help" size={19} /><span>Help & support</span></button>
           <button className={`nav-item ${activeNav === "Profile & settings" ? "active" : ""}`} onClick={() => setActiveNav("Profile & settings")}><Icon name="user" size={19} /><span>Profile & settings</span></button>
-          <div className="privacy-note"><Icon name="shield" size={17} /><span>Demo mode · Fictional medical information</span></div>
+          <div className="privacy-note"><Icon name="shield" size={17} /><span>Demo · Fictional medical information</span></div>
         </div>
       </aside>
 
@@ -301,7 +301,7 @@ const initials = fullName
           <div className="provider-status">
             <span className="status-dot"></span>
             <span>
-              <strong>Demo mode</strong> · Sample medical records
+              <strong>Demo</strong> Connected to Westside Medical Group
             </span>
           </div>
           <div className="top-actions">
