@@ -299,7 +299,6 @@ const initials = fullName
       <main className="main">
         <header className="topbar">
           <div className="provider-status">
-            <span className="status-dot"></span>
             <span>
               <strong>Demo</strong> Connected to Westside Medical Group
             </span>
@@ -366,7 +365,6 @@ const initials = fullName
               <div><p className="card-kicker">RECENT VISIT · JUNE 4</p><h2>Annual wellness visit</h2><p>With Dr. Elena Chen · Primary Care</p></div>
             </div>
             <div className="recent-visit-takeaway">
-              <span className="spark">✦</span>
               <div><strong>Key takeaway</strong><p>Your blood pressure has improved. Continue your current plan and check in after two weeks.</p></div>
             </div>
             <div className="recent-visit-result"><span>Blood pressure</span><strong>124/78 <small>Normal</small></strong></div>
@@ -418,7 +416,6 @@ const initials = fullName
           </section>
 
           <section className="health-tip">
-            <div className="tip-icon">✦</div>
             <div><span>CARE TIP</span><strong>Small steps make a difference</strong><p>A 10-minute walk after meals can support healthy blood pressure.</p></div>
             <button disabled>Read more <Icon name="arrow" size={15} /></button>
           </section>
@@ -629,7 +626,6 @@ const initials = fullName
                 <h2>Your annual wellness visit</h2>
                 <p className="detail-subtitle">June 4, 2025 with Dr. Elena Chen</p>
                 <div className="summary-hero">
-                  <span className="context-spark">✦</span>
                   <div><small>THE BIG PICTURE</small><strong>Your blood pressure is improving, and your overall plan is working.</strong><p>Dr. Chen wants you to continue your current habits and see how you feel on the new medication over the next two weeks.</p></div>
                 </div>
                 <div className="highlight-grid">
