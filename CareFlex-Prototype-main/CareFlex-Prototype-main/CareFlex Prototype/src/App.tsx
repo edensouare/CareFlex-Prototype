@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { supabase } from "./supabase";
+import type { User } from "@supabase/supabase-js";
 
 type IconName =
   | "home"
@@ -72,13 +73,20 @@ function PortalPage({
   onVisit,
   onMessage,
   onSchedule,
+  fullName,
+  initials,
+  email,
 }: {
   page: string;
   onLab: () => void;
   onVisit: () => void;
   onMessage: () => void;
   onSchedule: () => void;
+  fullName: string;
+  initials: string;
+  email: string;
 }) {
+
   if (page === "Appointments") {
     return (
       <section className="portal-page">
@@ -137,7 +145,7 @@ function PortalPage({
           </div>
           <div className="message-preview">
             <div className="message-person"><span className="doctor-avatar">EC</span><div><strong>Dr. Elena Chen</strong><small>Primary care physician · Usually replies in 1 day</small></div></div>
-            <div className="preview-bubble"><small>DR. CHEN · TODAY AT 9:24 AM</small><p>Hi Sophia, your blood pressure is moving in the right direction. Please send me an update after two weeks on Lisinopril, especially if you notice dizziness or a persistent cough.</p></div>
+            <div className="preview-bubble"><small>DR. CHEN · TODAY AT 9:24 AM</small><p>Hi {fullName.split(" ")[0]}, your blood pressure is moving in the right direction. Please send me an update after two weeks on Lisinopril, especially if you notice dizziness or a persistent cough.</p></div>
             <button className="secondary-button" onClick={onMessage}>Reply to care team <Icon name="arrow" size={15} /></button>
           </div>
         </div>
@@ -187,7 +195,18 @@ function PortalPage({
     <section className="portal-page">
       <div className="page-heading"><div><p className="eyebrow">ACCOUNT</p><h1>Profile & settings</h1><p>Manage your personal details, connected providers, and preferences.</p></div></div>
       <article className="profile-panel">
-        <div className="profile-hero"><span className="profile-large">SM</span><div><h2>Sophia Miller</h2><p>sophia.miller@example.com · Patient ID CF-284019</p></div><button className="secondary-button" disabled>Edit profile</button></div>
+        <div className="profile-hero">
+  <span className="profile-large">{initials}</span>
+
+  <div>
+    <h2>{fullName}</h2>
+    <p>{email}</p>
+  </div>
+
+  <button className="secondary-button" disabled>
+    Edit profile
+  </button>
+</div>
         <div className="settings-row"><span className="list-icon green"><Icon name="link" size={21} /></span><div><strong>Connected provider</strong><p>Westside Medical Group · Connected</p></div><button disabled>Manage</button></div>
         <div className="settings-row"><span className="list-icon blue"><Icon name="bell" size={21} /></span><div><strong>Notifications</strong><p>Lab updates, appointment reminders, and messages</p></div><button disabled>Manage</button></div>
         <div className="settings-row"><span className="list-icon lavender"><Icon name="shield" size={21} /></span><div><strong>Privacy & security</strong><p>Password, sign-in, and data sharing preferences</p></div><button disabled>Manage</button></div>
@@ -196,7 +215,31 @@ function PortalPage({
   );
 }
 
-export default function App() {
+export default function App({
+  user,
+  showWelcome,
+  onDismissWelcome,
+}: {
+  user: User;
+  showWelcome: boolean;
+  onDismissWelcome: () => void;
+}) {
+  const savedName = user.user_metadata?.full_name;
+
+const fullName =
+  typeof savedName === "string" && savedName.trim()
+    ? savedName.trim()
+    : user.email?.split("@")[0] ?? "Patient";
+
+const firstName = fullName.split(" ")[0];
+
+const initials = fullName
+  .split(" ")
+  .map((part) => part[0])
+  .slice(0, 2)
+  .join("")
+  .toUpperCase();
+
   const [activeNav, setActiveNav] = useState("Overview");
   const [flowStep, setFlowStep] = useState(0);
   const [detailView, setDetailView] = useState<"lab" | "visit" | null>(null);
@@ -249,16 +292,16 @@ export default function App() {
         <div className="sidebar-bottom">
           <button className={`nav-item ${activeNav === "Help & support" ? "active" : ""}`} onClick={() => setActiveNav("Help & support")}><Icon name="help" size={19} /><span>Help & support</span></button>
           <button className={`nav-item ${activeNav === "Profile & settings" ? "active" : ""}`} onClick={() => setActiveNav("Profile & settings")}><Icon name="user" size={19} /><span>Profile & settings</span></button>
-          <div className="privacy-note"><Icon name="shield" size={17} /><span>Your health data is private and protected.</span></div>
+          <div className="privacy-note"><Icon name="shield" size={17} /><span>Demo · Fictional medical information</span></div>
         </div>
       </aside>
 
       <main className="main">
         <header className="topbar">
           <div className="provider-status">
-            <span className="status-dot"></span>
-            <span>Connected to <strong>Westside Medical Group</strong></span>
-            <button disabled>Manage</button>
+            <span>
+              <strong>Demo</strong> Connected to Westside Medical Group
+            </span>
           </div>
           <div className="top-actions">
             <button className="icon-button" aria-label="Notifications" disabled>
@@ -268,8 +311,8 @@ export default function App() {
             <span className="divider"></span>
             <div className="profile-menu-wrap">
               <button className="profile-button" onClick={() => setProfileMenuOpen(!profileMenuOpen)} aria-expanded={profileMenuOpen} aria-haspopup="menu">
-                <span className="avatar">SM</span>
-                <span className="profile-copy"><strong>Sophia Miller</strong><small>Patient</small></span>
+                <span className="avatar">{initials}</span>
+                <span className="profile-copy"><strong>{fullName}</strong><small>Patient</small></span>
                 <span className={`profile-chevron ${profileMenuOpen ? "open" : ""}`}>⌄</span>
               </button>
               {profileMenuOpen && (
@@ -291,7 +334,7 @@ export default function App() {
           <section className="welcome-row">
             <div>
               <p className="eyebrow">MONDAY, JUNE 9</p>
-              <h1>Good morning, Sophia</h1>
+              <h1>Good morning, {firstName}</h1>
               <p>Here’s what’s happening with your health today.</p>
             </div>
             <button className="secondary-button" onClick={openMessage}><Icon name="message" size={18} /> Message care team</button>
@@ -322,7 +365,6 @@ export default function App() {
               <div><p className="card-kicker">RECENT VISIT · JUNE 4</p><h2>Annual wellness visit</h2><p>With Dr. Elena Chen · Primary Care</p></div>
             </div>
             <div className="recent-visit-takeaway">
-              <span className="spark">✦</span>
               <div><strong>Key takeaway</strong><p>Your blood pressure has improved. Continue your current plan and check in after two weeks.</p></div>
             </div>
             <div className="recent-visit-result"><span>Blood pressure</span><strong>124/78 <small>Normal</small></strong></div>
@@ -374,7 +416,6 @@ export default function App() {
           </section>
 
           <section className="health-tip">
-            <div className="tip-icon">✦</div>
             <div><span>CARE TIP</span><strong>Small steps make a difference</strong><p>A 10-minute walk after meals can support healthy blood pressure.</p></div>
             <button disabled>Read more <Icon name="arrow" size={15} /></button>
           </section>
@@ -386,10 +427,70 @@ export default function App() {
               onVisit={() => setDetailView("visit")}
               onMessage={openMessage}
               onSchedule={openSchedule}
+              fullName={fullName}
+              initials={initials}
+              email={user.email ?? ""}
             />
           )}
         </div>
       </main>
+
+      {showWelcome && (
+        <div className="modal-backdrop">
+          <section
+            className="flow-modal demo-welcome-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="demo-welcome-title"
+            aria-describedby="demo-welcome-description"
+          >
+            <div className="flow-content demo-welcome-content">
+              <div className="demo-welcome-icon">
+                <Icon name="shield" size={28} />
+              </div>
+
+              <span className="demo-welcome-label">
+                DEMO EXPERIENCE
+              </span>
+
+              <h2 id="demo-welcome-title">
+                Welcome to CareFlex, {firstName}!
+              </h2>
+
+              <p
+                id="demo-welcome-description"
+                className="demo-welcome-description"
+              >
+                You're exploring CareFlex in demo mode.
+                We've preloaded sample medical records,
+                visit summaries, lab updates, and care
+                information so you can experience how
+                CareFlex works.
+              </p>
+
+              <div className="demo-welcome-notice">
+                <Icon name="shield" size={19} />
+                <p>
+                  All medical information is fictional.
+                  No real healthcare providers are connected,
+                  and actions such as messaging and appointment
+                  booking are simulated.
+                </p>
+              </div>
+
+              <button
+                className="primary-button full"
+                type="button"
+                onClick={onDismissWelcome}
+              >
+                Explore CareFlex
+                <Icon name="arrow" size={17} />
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
+
 
       {flowStep > 0 && (
         <div className="modal-backdrop" role="presentation">
@@ -473,7 +574,7 @@ export default function App() {
               <div className="flow-content confirmation">
                 <div className="confirmation-mark"><Icon name="check" size={32} /></div>
                 <p className="eyebrow">APPOINTMENT CONFIRMED</p>
-                <h2>You’re all set, Sophia</h2>
+                <h2>You’re all set, {firstName}</h2>
                 <p className="flow-lead">{flowOrigin === "schedule" ? "Your follow-up appointment is booked." : "Your follow-up is booked and your care team has received your message."}</p>
                 <div className="confirmation-card">
                   <div className="summary-date"><span>JUN</span><strong>{selectedDate.split(" ")[1]}</strong></div>
@@ -525,7 +626,6 @@ export default function App() {
                 <h2>Your annual wellness visit</h2>
                 <p className="detail-subtitle">June 4, 2025 with Dr. Elena Chen</p>
                 <div className="summary-hero">
-                  <span className="context-spark">✦</span>
                   <div><small>THE BIG PICTURE</small><strong>Your blood pressure is improving, and your overall plan is working.</strong><p>Dr. Chen wants you to continue your current habits and see how you feel on the new medication over the next two weeks.</p></div>
                 </div>
                 <div className="highlight-grid">
