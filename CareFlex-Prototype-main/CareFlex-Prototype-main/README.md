@@ -102,3 +102,10 @@ Everything in the interface is simulated to demonstrate the UX and interaction f
 The app is configured for static deployment with the Vite base path required by this repository. In the repository’s **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. Do not select branch-based deployment: it runs a separate Jekyll deployment from the repository root, which does not contain the built app and can replace the app deployment with a 404.
 
 After setting the source, push to `main` or run **Deploy to GitHub Pages** from the repository’s Actions tab. The app is published at `https://edensouare.github.io/CareFlex-Prototype/`. The account root URL, `https://edensouare.github.io/`, belongs to a separate Pages site and does not point to this project.
+
+## Login Information
+
+The login information for the test account can be found on the login page of the application, but if it cannot be found for whatever reason, it is listed here as well.
+
+-email: test@patient.com
+-password: testpatient
